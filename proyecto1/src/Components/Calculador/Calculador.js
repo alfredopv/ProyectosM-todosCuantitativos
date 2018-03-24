@@ -12,37 +12,77 @@ class Calculador extends Component{
   }
 
   componentWillMount(){
-    if(this.props.tipo === 1){
-      let i = 0;
-      let semilla = this.props.semilla;
-      let x = semilla;
-      let temp = [];
-      while(i < 1000){
-        x = x*x;
-        let siguiente;
-        if(x.toString().length === 8){
-          siguiente = x.toString().substring(2, 6);
+    let i;
+    let temp;
+    let xo;
+    let a;
+    let c;
+    let m;
+    switch(this.props.tipo){
+      case 1:
+        i = 0;
+        let semilla = this.props.semilla;
+        let x = semilla;
+        temp = [];
+        while(i < 1000){
+          x = x*x;
+          let siguiente;
+          if(x.toString().length === 8){
+            siguiente = x.toString().substring(2, 6);
+            temp.push(siguiente);
+          }else if (x.toString().length === 7) {
+            siguiente = x.toString().substring(1, 5);
+            temp.push(siguiente);
+          }else if (x.toString().length === 6) {
+            siguiente = x.toString().substring(1, 5);
+            temp.push(siguiente);
+          }else if (x.toString().length === 5) {
+            siguiente = x.toString().substring(0, 4);
+            temp.push(siguiente);
+          }else if (x.toString().length === 4) {
+            siguiente = x.toString();
+            temp.push(siguiente);
+          }else{
+            break;
+          }
+          this.setState({numeros:temp})
+          x = siguiente;
+          i++;
+        }
+        break;
+      case 2:
+        xo = this.props.xo;
+        a = this.props.a;
+        c = this.props.c;
+        m = this.props.m;
+        temp = [];
+        i = 0;
+        while(i < 1000){
+          let siguiente = (parseInt(a*xo)+parseInt(c))%m;
           temp.push(siguiente);
-        }else if (x.toString().length === 7) {
-          siguiente = x.toString().substring(1, 5);
-          temp.push(siguiente);
-        }else if (x.toString().length === 6) {
-          siguiente = x.toString().substring(1, 5);
-          temp.push(siguiente);
-        }else if (x.toString().length === 5) {
-          siguiente = x.toString().substring(0, 4);
-          temp.push(siguiente);
-        }else if (x.toString().length === 4) {
-          siguiente = x.toString();
-          temp.push(siguiente);
-        }else{
-          break;
+          xo = siguiente;
+          i++;
         }
         this.setState({numeros:temp})
-        x = siguiente;
-        i++;
-
-      }
+        break;
+      case 3:
+        break;
+      case 4:
+        xo = this.props.xo;
+        a = this.props.a;
+        m = this.props.m;
+        temp = [];
+        i = 0;
+        while(i < 1000){
+          let siguiente = (a*xo)%m;
+          temp.push(siguiente);
+          xo = siguiente;
+          i++;
+        }
+        this.setState({numeros:temp})
+        break;
+      default:
+        break;
     }
   }
 

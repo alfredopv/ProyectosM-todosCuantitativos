@@ -52,7 +52,11 @@ class Main extends Component {
         <Calculador tipo={this.state.tipo} semilla={this.state.xo} />
         : (this.state.tipo === 2 ?
           <Calculador tipo={this.state.tipo} xo={this.state.xo} m={this.state.m} a={this.state.a} c={this.state.c} />
-          : null)}
+          : (this.state.tipo === 3 ?
+            <Calculador tipo={this.state.tipo} xo={this.state.xo} m={this.state.m} a={this.state.a} c={this.state.c} />
+            : (this.state.tipo === 4 ?
+              <Calculador tipo={this.state.tipo} xo={this.state.xo} m={this.state.m} a={this.state.a} />
+              : null)))}
       </div>
     );
   }

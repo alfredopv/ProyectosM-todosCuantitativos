@@ -12,36 +12,44 @@ const Generador = (props) => {
       return (
         <form onSubmit ={submit} >
           <h3>Método de los Centros Cuadrados</h3>
-          <input ref={input => _x0 = input } type="number" size="4" min="1000" max="9999" placeholder="Semilla" required />
+          <div class="Inputs">
+            <input ref={input => _x0 = input } type="number" size="4" min="1000" max="9999" placeholder="Semilla" required />
+          </div>
           <button> Agregar </ button>
       </form> );
     }else if(props.id === 2){
       return (
         <form onSubmit ={submit} >
           <h3>Método Congruencial</h3>
-          <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
-          <input ref={input => _m = input } type="number" placeholder="m" required />
-          <input ref={input => _a = input } type="number" placeholder="c" required />
-          <input ref={input => _c = input } type="number" placeholder="a" required />
+          <div class="Inputs">
+            <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
+            <input ref={input => _m = input } type="number" placeholder="m" required />
+            <input ref={input => _a = input } type="number" placeholder="a" required />
+            <input ref={input => _c = input } type="number" placeholder="c" required />
+          </div>
           <button> Agregar </ button>
       </form> );
     }else if(props.id === 3){
       return (
         <form onSubmit ={submit} >
           <h3>Método Congruencial Mixtos</h3>
-          <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
-          <input ref={input => _m = input } type="number" placeholder="m" required />
-          <input ref={input => _a = input } type="number" placeholder="c" required />
-          <input ref={input => _c = input } type="number" placeholder="a" required />
+          <div class="Inputs">
+            <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
+            <input ref={input => _m = input } type="number" placeholder="m" required />
+            <input ref={input => _a = input } type="number" placeholder="c" required />
+            <input ref={input => _c = input } type="number" placeholder="a" required />
+          </div>
           <button> Agregar </ button>
       </form> );
     }else if(props.id === 4){
       return (
         <form onSubmit ={submit} >
           <h3>Generador Multiplicativo</h3>
-          <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
-          <input ref={input => _m = input } type="number" placeholder="m" required />
-          <input ref={input => _a = input } type="number" placeholder="c" required />
+          <div class="Inputs">
+            <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
+            <input ref={input => _m = input } type="number" placeholder="m" required />
+            <input ref={input => _a = input } type="number" placeholder="a" required />
+          </div>
           <button> Agregar </ button>
       </form> );
     }else{
