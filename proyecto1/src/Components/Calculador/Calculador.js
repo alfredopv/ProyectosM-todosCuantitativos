@@ -18,6 +18,7 @@ class Calculador extends Component{
     let a;
     let c;
     let m;
+    let inicial;
     switch(this.props.tipo){
       case 1:
         i = 0;
@@ -56,9 +57,16 @@ class Calculador extends Component{
         c = this.props.c;
         m = this.props.m;
         temp = [];
+        inicial = undefined;
         i = 0;
         while(i < 1000){
+          if(inicial === undefined){
+            inicial = (parseInt(a*xo)+parseInt(c))%m;
+          }
           let siguiente = (parseInt(a*xo)+parseInt(c))%m;
+          if(siguiente === inicial && i > 1){
+            break;
+          }
           temp.push(siguiente);
           xo = siguiente;
           i++;
@@ -72,9 +80,16 @@ class Calculador extends Component{
         a = this.props.a;
         m = this.props.m;
         temp = [];
+        inicial = undefined;
         i = 0;
         while(i < 1000){
+          if(inicial === undefined){
+            inicial = (a*xo)%m;
+          }
           let siguiente = (a*xo)%m;
+          if(siguiente === inicial && i > 1){
+            break;
+          }
           temp.push(siguiente);
           xo = siguiente;
           i++;

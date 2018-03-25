@@ -15,7 +15,7 @@ const Generador = (props) => {
           <div class="Inputs">
             <input ref={input => _x0 = input } type="number" size="4" min="1000" max="9999" placeholder="Semilla" required />
           </div>
-          <button> Agregar </ button>
+          <button className="botonEnviar"> Calcular </ button>
       </form> );
     }else if(props.id === 2){
       return (
@@ -27,7 +27,7 @@ const Generador = (props) => {
             <input ref={input => _a = input } type="number" placeholder="a" required />
             <input ref={input => _c = input } type="number" placeholder="c" required />
           </div>
-          <button> Agregar </ button>
+          <button className="botonEnviar"> Calcular </ button>
       </form> );
     }else if(props.id === 3){
       return (
@@ -39,7 +39,7 @@ const Generador = (props) => {
             <input ref={input => _a = input } type="number" placeholder="c" required />
             <input ref={input => _c = input } type="number" placeholder="a" required />
           </div>
-          <button> Agregar </ button>
+          <button className="botonEnviar"> Calcular </ button>
       </form> );
     }else if(props.id === 4){
       return (
@@ -50,7 +50,7 @@ const Generador = (props) => {
             <input ref={input => _m = input } type="number" placeholder="m" required />
             <input ref={input => _a = input } type="number" placeholder="a" required />
           </div>
-          <button> Agregar </ button>
+          <button className="botonEnviar"> Calcular </ button>
       </form> );
     }else{
       return (
