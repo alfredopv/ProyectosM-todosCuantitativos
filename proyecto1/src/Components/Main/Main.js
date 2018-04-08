@@ -33,18 +33,20 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <div id="botonCentrosCuadrados" onClick={() => this.seleccionarOpcion(1)}>
-          <p>Método de los Centros Cuadrados</p>
-        </div>
-        <div id="botonCongruencial" onClick={() => this.seleccionarOpcion(2)}>
-          <p>Método Congruencial</p>
-        </div>
-        <div id="botonCongruencialMixto" onClick={() => this.seleccionarOpcion(3)}>
-          <p>Método Congruencial Mixto</p>
-        </div>
-        <div id="botonGeneradorMultiplicativo" onClick={() => this.seleccionarOpcion(4)}>
-          <p>Generador Multiplicativo</p>
-        </div>
+        <div className="menu">
+          <div id="botonCentrosCuadrados" onClick={() => this.seleccionarOpcion(1)}>
+            <p>Método de los Centros Cuadrados</p>
+          </div>
+          <div id="botonCongruencial" onClick={() => this.seleccionarOpcion(2)}>
+            <p>Método Congruencial</p>
+          </div>
+          <div id="botonCongruencialMixto" onClick={() => this.seleccionarOpcion(3)}>
+            <p>Método Congruencial Mixto</p>
+          </div>
+          <div id="botonGeneradorMultiplicativo" onClick={() => this.seleccionarOpcion(4)}>
+            <p>Generador Multiplicativo</p>
+          </div>
+        </div>  
         <div id="generador">
           <Generador id={this.state.seleccion} datos={this.obtenerDatos} />
         </div>
