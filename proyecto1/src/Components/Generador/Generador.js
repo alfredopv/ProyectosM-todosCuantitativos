@@ -21,7 +21,7 @@ const Generador = (props) => {
       return (
         <form onSubmit ={submit} >
           <h3>Método Congruencial</h3>
-          <div class="Inputs">
+          <div className="Inputs">
             <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
             <input ref={input => _m = input } type="number" placeholder="m" required />
             <input ref={input => _a = input } type="number" placeholder="a" required />
@@ -33,11 +33,11 @@ const Generador = (props) => {
       return (
         <form onSubmit ={submit} >
           <h3>Método Congruencial Mixtos</h3>
-          <div class="Inputs">
+          <div className="Inputs">
             <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
             <input ref={input => _m = input } type="number" placeholder="m" required />
-            <input ref={input => _a = input } type="number" placeholder="c" required />
-            <input ref={input => _c = input } type="number" placeholder="a" required />
+            <input ref={input => _a = input } type="number" placeholder="a" required />
+            <input ref={input => _c = input } type="number" placeholder="c" required />
           </div>
           <button className="botonEnviar"> Calcular </ button>
       </form> );
@@ -45,7 +45,7 @@ const Generador = (props) => {
       return (
         <form onSubmit ={submit} >
           <h3>Generador Multiplicativo</h3>
-          <div class="Inputs">
+          <div className="Inputs">
             <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
             <input ref={input => _m = input } type="number" placeholder="m" required />
             <input ref={input => _a = input } type="number" placeholder="a" required />
