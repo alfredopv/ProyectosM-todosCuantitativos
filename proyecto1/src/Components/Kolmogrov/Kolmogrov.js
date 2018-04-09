@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Kolmogrov.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 const numeros = null;
 const col1 = [];
@@ -52,6 +53,7 @@ class Kolmogrov extends Component {
     const { numeros } = this.state;
     let longitud = 0;
     let array = [];
+    let resfinal;
     numeros.sort();
     if( numeros !== null){
       longitud = numeros.length;
@@ -117,19 +119,21 @@ class Kolmogrov extends Component {
 0.21493,
 0.21281,
 0.21068];
-if(nums.length>50){
-  t = 1.36/Math.sqrt(n);
+let t;
+if(numeros.length>50){
+  t = 1.36/Math.sqrt(numeros.length);
   console.log(t);
 }else{
-  t = tablakolgomorov[nums.length-1];
-  console.log(tablakolgomorov[nums.length-1]);
+  t = tablakolgomorov[numeros.length-1];
+  console.log(tablakolgomorov[numeros.length-1]);
 }
 if(d<=t){
-  console.log("se acepta");
+  resfinal = "se acepta";
 }else{
 
-    console.log("no se acepta");
+  resfinal = "no se acepta";
 }
+this.setState({resultado: resfinal})
   }
 
   dDefinitiva(numero){
@@ -147,11 +151,10 @@ if(d<=t){
   render() {
     return (
       <div>
+      <Link to={'/'}><button className="botonEnviar"> Nueva prueba </ button></Link>
         <h1 className="App-title">Prueba de Kolmogrov</h1>
         <p>De acuerdo a los calculos realizados tu prueba arroja un resultado de :</p>
-        {this.state.dmas > this.state.dmenos ? <p>{this.state.dmas}</p> : <p>{this.state.dmenos}</p> }
-        <p>Revisa tus resultados en la tabla</p>
-        <img src="https://image.slidesharecdn.com/tablasks-160210044301/95/tablas-kolmogorovsmirnov-1-638.jpg" />
+        <p>{this.state.resultado}</p>
       </div>
     );
   }

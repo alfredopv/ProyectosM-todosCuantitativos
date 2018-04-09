@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import './Chi.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 let numeros = [];
 const cuenta = 0;
+const resultado = "";
 
 
 class Chi extends Component {
 
     constructor( props ){
         super( props )
-        this.state = { numeros, cuenta }
+        this.state = { numeros, cuenta, resultado }
         this.contar = this.contar.bind(this);
     }
 
@@ -128,18 +130,25 @@ class Chi extends Component {
 			}
     }
     console.log(chi_cuadrada);
-		v = limites.length-1;
-		if(chi_cuadrada<=obtenerChiTabla(v)){
-			console.log("se acepta");
+		let v = limites.length-1;
+		let res = "";
+		if(chi_cuadrada<=this.obtenerChiTabla(v)){
+			res = "se acepta";
 		}else{
-			console.log("no se acepta");
+			res = "no se acepta";
 		}
+		this.setState({resultado: res})
   }
 
 
   render() {
     return (
+			<div>
+			<Link to={'/'}><button className="botonEnviar"> Nueva prueba </ button></Link>
       <h1 className="App-title">Prueba de Chi Cuadrada</h1>
+			<p>De acuerdo a los calculos realizados tu prueba arroja un resultado de :</p>
+			<p>{this.state.resultado}</p>
+			</div>
     );
   }
 }
