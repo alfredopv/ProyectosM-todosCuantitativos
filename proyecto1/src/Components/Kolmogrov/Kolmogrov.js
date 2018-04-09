@@ -7,13 +7,15 @@ const col2 = [];
 const dmas = 0;
 const dmenos = 0;
 const dfinal = 0;
+const resultado = 0;
 class Kolmogrov extends Component {
 
   constructor( props ){
     super( props )
-    this.state = { numeros, col1, col2, dmas, dmenos, dfinal }
+    this.state = { numeros, col1, col2, dmas, dmenos, dfinal, resultado }
     this.calcularRes1 = this.calcularRes1.bind(this);
     this.calcularRes2 = this.calcularRes2.bind(this);
+    this.dDefinitiva = this.dDefinitiva.bind(this);
   }
 
   componentWillMount(){
@@ -64,6 +66,81 @@ class Kolmogrov extends Component {
     }
     this.setState({col2:array})
     this.setState({dmenos:maximo})
+    let d = this.dDefinitiva(dmenos);
+    const tablakolgomorov = [0.9975,
+0.95,
+0.86428,
+0.77639,
+0.70543,
+0.65287,
+0.60975,
+0.57429,
+0.54443,
+0.51872,
+0.49539,
+0.47672,
+0.45921,
+0.44352,
+0.42934,
+0.41644,
+0.40464,
+0.3938,
+0.38379,
+0.37451,
+0.36588,
+0.35782,
+0.35027,
+0.34318,
+0.33651,
+0.33022,
+0.32425,
+0.31862,
+0.31327,
+0.30818,
+0.30333,
+0.2987,
+0.29248,
+0.29005,
+0.286,
+0.28211,
+0.27838,
+0.27483,
+0.27135,
+0.23494,
+0.23213,
+0.22941,
+0.22679,
+0.22426,
+0.22181,
+0.21944,
+0.21715,
+0.21493,
+0.21281,
+0.21068];
+if(nums.length>50){
+  t = 1.36/Math.sqrt(n);
+  console.log(t);
+}else{
+  t = tablakolgomorov[nums.length-1];
+  console.log(tablakolgomorov[nums.length-1]);
+}
+if(d<=t){
+  console.log("se acepta");
+}else{
+
+    console.log("no se acepta");
+}
+  }
+
+  dDefinitiva(numero){
+    let n = this.state.dmas;
+
+    let n2 = numero;
+    if(n>n2){
+      return n;
+    }else{
+      return n2;
+    }
   }
 
 
