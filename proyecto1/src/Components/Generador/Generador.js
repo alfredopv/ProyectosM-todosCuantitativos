@@ -22,10 +22,10 @@ const Generador = (props) => {
         <form onSubmit ={submit} >
           <h3>Método Congruencial</h3>
           <div className="Inputs">
-            <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
-            <input ref={input => _m = input } type="number" placeholder="m" required />
-            <input ref={input => _a = input } type="number" placeholder="a" required />
-            <input ref={input => _c = input } type="number" placeholder="c" required />
+            <input ref={input => _x0 = input } type="number" min="1" placeholder="Xo" required />
+            <input ref={input => _m = input } type="number" min="1" placeholder="m" required />
+            <input ref={input => _a = input } type="number" min="1" placeholder="a" required />
+            <input ref={input => _c = input } type="number" min="1" placeholder="c" required />
           </div>
           <button className="botonEnviar"> Calcular </ button>
       </form> );
@@ -34,10 +34,10 @@ const Generador = (props) => {
         <form onSubmit ={submit} >
           <h3>Método Congruencial Mixtos</h3>
           <div className="Inputs">
-            <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
-            <input ref={input => _m = input } type="number" placeholder="m" required />
-            <input ref={input => _a = input } type="number" placeholder="a" required />
-            <input ref={input => _c = input } type="number" placeholder="c" required />
+            <input ref={input => _x0 = input } type="number" min="1" placeholder="Xo" required />
+            <input ref={input => _m = input } type="number" min="1" placeholder="m" required />
+            <input ref={input => _a = input } type="number" min="1" placeholder="a" required />
+            <input ref={input => _c = input } type="number" min="1" placeholder="c" required />
           </div>
           <button className="botonEnviar"> Calcular </ button>
       </form> );
@@ -46,9 +46,9 @@ const Generador = (props) => {
         <form onSubmit ={submit} >
           <h3>Generador Multiplicativo</h3>
           <div className="Inputs">
-            <input ref={input => _x0 = input } type="number" placeholder="Xo" required />
-            <input ref={input => _m = input } type="number" placeholder="m" required />
-            <input ref={input => _a = input } type="number" placeholder="a" required />
+            <input ref={input => _x0 = input } type="number" min="1" placeholder="Xo" required />
+            <input ref={input => _m = input } type="number" min="1" placeholder="m" required />
+            <input ref={input => _a = input } type="number" min="1" placeholder="a" required />
           </div>
           <button className="botonEnviar"> Calcular </ button>
       </form> );
