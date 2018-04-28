@@ -83,6 +83,7 @@ class ModeloMMSK extends Component {
   lamdaefectiva(){
     const lamda = this.state.lamda;
     const pk = this.calcularPk();
+    console.log(lamda*(1-pk))
     return lamda*(1-pk);
   }
   calcularPk(){
@@ -200,7 +201,7 @@ class ModeloMMSK extends Component {
               </div>
             </div>
           </form>
-          { this.state.lamda > this.state.miu ?
+          { this.state.lamda > (this.state.miu*this.state.servidores) ?
             <div class="alert alert-danger" role="alert">
               Sistema no estable
             </div> :
