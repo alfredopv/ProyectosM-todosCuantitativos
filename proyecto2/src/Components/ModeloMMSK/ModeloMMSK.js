@@ -17,11 +17,12 @@ class ModeloMMSK extends Component {
 
   constructor(props){
     super(props);
-    this.state = { miu, lamda, servidores, k, p, p0, lq, l, wq, w }
+    this.state = { miu, lamda, servidores, k, p, p0, lq, l, wq, w, n, pn }
     this.handleMiuChange = this.handleMiuChange.bind(this);
     this.handleLamdaChange = this.handleLamdaChange.bind(this);
     this.handleServidoresChange = this.handleServidoresChange.bind(this);
     this.handleKChange = this.handleKChange.bind(this);
+    this.handleNChange = this.handleNChange.bind(this);
     this.calcularP = this.calcularP.bind(this);
     this.calcularPk = this.calcularPk.bind(this);
     this.calcularP0 = this.calcularP0.bind(this);
@@ -30,6 +31,7 @@ class ModeloMMSK extends Component {
     this.calcularWQ = this.calcularWQ.bind(this);
     this.calcularW = this.calcularW.bind(this);
     this.calcularL = this.calcularL.bind(this);
+    this.calcularPn = this.calcularPn.bind(this);
   }
 
   handleMiuChange( evt ){
@@ -40,6 +42,10 @@ class ModeloMMSK extends Component {
       this.calcularWQ();
       this.calcularW();
       this.calcularL();
+      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
+        this.setState({ pn: 0 });
+        document.getElementById("inputN3").value = "";
+      }
     });
   }
   handleLamdaChange( evt ){
@@ -50,6 +56,10 @@ class ModeloMMSK extends Component {
       this.calcularWQ();
       this.calcularW();
       this.calcularL();
+      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
+        this.setState({ pn: 0 });
+        document.getElementById("inputN3").value = "";
+      }
     }
   )};
   handleServidoresChange( evt ){
@@ -60,6 +70,10 @@ class ModeloMMSK extends Component {
       this.calcularWQ();
       this.calcularW();
       this.calcularL();
+      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
+        this.setState({ pn: 0 });
+        document.getElementById("inputN3").value = "";
+      }
     }
   )};
   handleKChange( evt ){
@@ -70,8 +84,17 @@ class ModeloMMSK extends Component {
       this.calcularWQ();
       this.calcularW();
       this.calcularL();
+      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
+        this.setState({ pn: 0 });
+        document.getElementById("inputN3").value = "";
+      }
     }
   )};
+  handleNChange (evt) {
+    this.setState({ n: evt.target.value }, () => {
+      this.calcularPn();
+    });
+  }
   factorial(n){
     let res = 1;
     while(n > 0){
@@ -99,6 +122,23 @@ class ModeloMMSK extends Component {
       resultado = (Math.pow(lamda/miu,k)/(this.factorial(servidores)*Math.pow(servidores,k-servidores)))*p0;
     }
     return resultado;
+  }
+  calcularPn(){
+    const lamda = this.state.lamda;
+    const miu = this.state.miu;
+    const servidores = this.state.servidores;
+    const k = this.state.k;
+    const p0 = this.calcularP0();
+    const n = this.state.n;
+    let resultado;
+    if(n < servidores){
+      resultado = (Math.pow(lamda/miu,n)/this.factorial(n))*p0;
+    }else if(n <= k){
+      resultado = (Math.pow(lamda/miu,n)/(this.factorial(servidores)*Math.pow(servidores,n-servidores)))*p0;
+    }else{
+      resultado = 0;
+    }
+    this.setState({ pn: resultado.toFixed(5) })
   }
   calcularP(){
     const lamda = this.state.lamda;
@@ -213,6 +253,10 @@ class ModeloMMSK extends Component {
               <li className="list-group-item">Promedio Clientes en el Sistema (L): <strong>{ this.state.l }</strong></li>
               <li className="list-group-item">Tiempo Esperado en la Cola (WQ): <strong>{ this.state.wq }</strong></li>
               <li className="list-group-item">Tiempo Esperado en el Sistema (W); <strong>{ this.state.w }</strong></li>
+              <li className="list-group-item">
+                <input className="form-control" type="number" min="1" id="inputN3" placeholder="n" onChange={this.handleNChange}/>
+                Probabilidad (Pn); <strong>{ this.state.pn }</strong>
+              </li>
             </ul>
           }
         </div>

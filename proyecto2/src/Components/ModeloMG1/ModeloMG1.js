@@ -44,7 +44,7 @@ class ModeloMG1 extends Component {
       this.calcularW();
       if(this.state.lamda <= this.state.miu){
         this.setState({ pn: 0 });
-        document.getElementById("inputN1").value = "";
+        document.getElementById("inputN4").value = "";
       }
     });
   }
@@ -59,7 +59,7 @@ class ModeloMG1 extends Component {
       this.calcularW();
       if(this.state.lamda <= this.state.miu){
         this.setState({ pn: 0 });
-        document.getElementById("inputN1").value = "";
+        document.getElementById("inputN4").value = "";
       }
     });
   }
@@ -74,7 +74,7 @@ class ModeloMG1 extends Component {
       this.calcularW();
       if(this.state.lamda <= this.state.miu){
         this.setState({ pn: 0 });
-        document.getElementById("inputN1").value = "";
+        document.getElementById("inputN4").value = "";
       }
     });
   }
@@ -184,7 +184,7 @@ class ModeloMG1 extends Component {
                 <li className="list-group-item">Tiempo Esperado en la Cola (WQ): <strong>{ this.state.wq }</strong></li>
                 <li className="list-group-item">Tiempo Esperado en el Sistema (W); <strong>{ this.state.w }</strong></li>
                 <li className="list-group-item">
-                  <input className="form-control" type="number" min="1" id="inputN1" placeholder="n" onChange={this.handleNChange}/>
+                  <input className="form-control" type="number" min="1" id="inputN4" placeholder="n" onChange={this.handleNChange}/>
                   Probabilidad (Pn); <strong>{ this.state.pn }</strong>
                 </li>
               </ul>

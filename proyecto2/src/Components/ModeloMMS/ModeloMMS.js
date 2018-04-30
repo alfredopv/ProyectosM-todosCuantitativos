@@ -75,7 +75,7 @@ class ModeloMMS extends Component {
       this.calcularL();
       this.calcularWQ();
       this.calcularW();
-      if(this.state.lamda <= this.state.miu){
+      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
         this.setState({ pn: 0 });
         document.getElementById("inputN2").value = "";
       }
@@ -89,7 +89,7 @@ class ModeloMMS extends Component {
       this.calcularL();
       this.calcularWQ();
       this.calcularW();
-      if(this.state.lamda <= this.state.miu){
+      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
         this.setState({ pn: 0 });
         document.getElementById("inputN2").value = "";
       }
@@ -103,7 +103,7 @@ class ModeloMMS extends Component {
       this.calcularL();
       this.calcularWQ();
       this.calcularW();
-      if(this.state.lamda <= this.state.miu){
+      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
         this.setState({ pn: 0 });
         document.getElementById("inputN2").value = "";
       }
@@ -185,7 +185,7 @@ class ModeloMMS extends Component {
             <div className="form-group row">
               <label for="example-text-input" className="col-md-7 col-form-label">Número de Servidores (s)</label>
               <div className="col-md-5">
-                <input className="form-control" type="number" min="2" id="example-text-input" onChange={this.handleServidoresChange} />
+                <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleServidoresChange} />
               </div>
             </div>
           </form>
