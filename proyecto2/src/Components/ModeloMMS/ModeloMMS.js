@@ -228,7 +228,7 @@ class ModeloMMS extends Component {
               </div>
             </div>
           </form>
-          { Number(this.state.lamda) > (Number(this.state.miu)*Number(this.state.servidores)) ?
+          { Number(this.state.lamda) >= (Number(this.state.miu)*Number(this.state.servidores)) ?
             <div class="alert alert-danger" role="alert">
               Sistema no estable
             </div> :

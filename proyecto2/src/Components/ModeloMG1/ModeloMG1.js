@@ -197,7 +197,7 @@ class ModeloMG1 extends Component {
               </div>
             </div>
             <div className="form-group row">
-              <label for="example-text-input" className="col-md-7 col-form-label">Varianza (σ)</label>
+              <label for="example-text-input" className="col-md-7 col-form-label">Desviación (σ)</label>
               <div className="col-md-5">
                 <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleSigmaChange}/>
               </div>
@@ -209,7 +209,7 @@ class ModeloMG1 extends Component {
               </div>
             </div>
           </form>
-          { Number(this.state.lamda) > Number(this.state.miu) ?
+          { Number(this.state.lamda) >= Number(this.state.miu) ?
             <div class="alert alert-danger" role="alert">
               Sistema no estable
             </div> :

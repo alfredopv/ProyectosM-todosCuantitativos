@@ -180,7 +180,7 @@ class ModeloMM1 extends Component {
               </div>
             </div>
           </form>
-          { Number(this.state.lamda) > Number(this.state.miu) ?
+          { Number(this.state.lamda) >= Number(this.state.miu) ?
             <div className="alert alert-danger" role="alert">
               Sistema no estable
             </div> :
