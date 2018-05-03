@@ -35,54 +35,87 @@ class ModeloMG1 extends Component {
   }
 
   handleSigmaChange (evt) {
-    this.setState({ sigma: evt.target.value }, () => {
-      this.calcularP();
-      this.calcularP0();
-      this.calcularLQ();
-      this.calcularL();
-      this.calcularWQ();
-      this.calcularW();
-      if(this.state.lamda <= this.state.miu){
-        this.setState({ pn: 0 });
-        document.getElementById("inputN4").value = "";
-      }
-    });
+    if(Number(evt.target.value) < 0){
+      this.setState({ sigma: 0 }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ sigma: evt.target.value }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }
   }
 
   handleMiuChange (evt) {
-    this.setState({ miu: evt.target.value }, () => {
-      this.calcularP();
-      this.calcularP0();
-      this.calcularLQ();
-      this.calcularL();
-      this.calcularWQ();
-      this.calcularW();
-      if(this.state.lamda <= this.state.miu){
-        this.setState({ pn: 0 });
-        document.getElementById("inputN4").value = "";
-      }
-    });
+    if(Number(evt.target.value) < 0){
+      this.setState({ miu: 0 }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ miu: evt.target.value }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }
   }
 
   handleLamdaChange (evt) {
-    this.setState({ lamda: evt.target.value }, () => {
-      this.calcularP();
-      this.calcularP0();
-      this.calcularLQ();
-      this.calcularL();
-      this.calcularWQ();
-      this.calcularW();
-      if(this.state.lamda <= this.state.miu){
-        this.setState({ pn: 0 });
-        document.getElementById("inputN4").value = "";
-      }
-    });
+    if(Number(evt.target.value) < 0){
+      this.setState({ lamda: 0 }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ lamda: evt.target.value }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }
   }
 
   handleNChange (evt) {
-    this.setState({ n: evt.target.value }, () => {
-      this.calcularPn();
-    });
+    if(Number(evt.target.value < 0)){
+      this.setState({ n: 0 }, () => {
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ n: evt.target.value }, () => {
+        this.calcularPn();
+      });
+    }
   }
 
   calcularP(){
@@ -131,7 +164,7 @@ class ModeloMG1 extends Component {
     const lamda = this.state.lamda;
     const miu = this.state.miu;
     const lq = this.calcularLQ();
-    let resultado = parseInt(lq/lamda);
+    let resultado = Number(lq/lamda);
     this.setState({ wq: resultado.toFixed(5) })
     return resultado;
   }
@@ -140,7 +173,7 @@ class ModeloMG1 extends Component {
     const lamda = this.state.lamda;
     const miu = this.state.miu;
     const wq = this.calcularWQ();
-    let resultado = parseInt(wq +  (1 / (miu)));
+    let resultado = Number(wq +  (1 / (miu)));
     this.setState({ w: resultado.toFixed(5) })
     return resultado;
   }
@@ -163,15 +196,20 @@ class ModeloMG1 extends Component {
                 <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleMiuChange}/>
               </div>
             </div>
-
             <div className="form-group row">
               <label for="example-text-input" className="col-md-7 col-form-label">Varianza (σ)</label>
               <div className="col-md-5">
                 <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleSigmaChange}/>
               </div>
             </div>
+            <div className="form-group row">
+              <label for="example-text-input" className="col-md-7 col-form-label">N para Pn</label>
+              <div className="col-md-5">
+                <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleNChange}/>
+              </div>
+            </div>
           </form>
-          { this.state.lamda > this.state.miu ?
+          { Number(this.state.lamda) > Number(this.state.miu) ?
             <div class="alert alert-danger" role="alert">
               Sistema no estable
             </div> :
@@ -182,11 +220,8 @@ class ModeloMG1 extends Component {
                 <li className="list-group-item">Promedio Clientes en la Cola (LQ): <strong>{ this.state.lq }</strong></li>
                 <li className="list-group-item">Promedio Clientes en el Sistema (L): <strong>{ this.state.l }</strong></li>
                 <li className="list-group-item">Tiempo Esperado en la Cola (WQ): <strong>{ this.state.wq }</strong></li>
-                <li className="list-group-item">Tiempo Esperado en el Sistema (W); <strong>{ this.state.w }</strong></li>
-                <li className="list-group-item">
-                  <input className="form-control" type="number" min="1" id="inputN4" placeholder="n" onChange={this.handleNChange}/>
-                  Probabilidad (Pn); <strong>{ this.state.pn }</strong>
-                </li>
+                <li className="list-group-item">Tiempo Esperado en el Sistema (W): <strong>{ this.state.w }</strong></li>
+                <li className="list-group-item">Probabilidad (Pn): <strong>{ this.state.pn }</strong></li>
               </ul>
             }
         </div>

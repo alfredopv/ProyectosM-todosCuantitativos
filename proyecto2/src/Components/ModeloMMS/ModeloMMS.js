@@ -68,51 +68,84 @@ class ModeloMMS extends Component {
   }
 
   handleMiuChange( evt ){
-    this.setState({ miu: evt.target.value }, () =>{
-      this.calcularP();
-      this.calcularP0();
-      this.calcularLQ();
-      this.calcularL();
-      this.calcularWQ();
-      this.calcularW();
-      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
-        this.setState({ pn: 0 });
-        document.getElementById("inputN2").value = "";
-      }
-    });
+    if(Number(evt.target.value) < 0){
+      this.setState({ miu: 0 }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ miu: evt.target.value }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }
   }
   handleLamdaChange( evt ){
-    this.setState({ lamda: evt.target.value }, () =>{
-      this.calcularP();
-      this.calcularP0();
-      this.calcularLQ();
-      this.calcularL();
-      this.calcularWQ();
-      this.calcularW();
-      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
-        this.setState({ pn: 0 });
-        document.getElementById("inputN2").value = "";
-      }
-    });
+    if(Number(evt.target.value) < 0){
+      this.setState({ lamda: 0 }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ lamda: evt.target.value }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }
   }
   handleServidoresChange( evt ){
-    this.setState({ servidores: evt.target.value }, () =>{
-      this.calcularP();
-      this.calcularP0();
-      this.calcularLQ();
-      this.calcularL();
-      this.calcularWQ();
-      this.calcularW();
-      if(this.state.lamda <= (this.state.miu*this.state.servidores)){
-        this.setState({ pn: 0 });
-        document.getElementById("inputN2").value = "";
-      }
-    });
+    if(Number(evt.target.value) < 0){
+      this.setState({ servidores: 0 }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ servidores: evt.target.value }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }
   }
   handleNChange( evt ){
-    this.setState({ n: evt.target.value }, () => {
-      this.calcularPn();
-    });
+    if(Number(evt.target.value < 0)){
+      this.setState({ n: 0 }, () => {
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ n: evt.target.value }, () => {
+        this.calcularPn();
+      });
+    }
   }
 
   calcularLQ(){
@@ -188,8 +221,14 @@ class ModeloMMS extends Component {
                 <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleServidoresChange} />
               </div>
             </div>
+            <div className="form-group row">
+              <label for="example-text-input" className="col-md-7 col-form-label">N para Pn</label>
+              <div className="col-md-5">
+                <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleNChange} />
+              </div>
+            </div>
           </form>
-          { this.state.lamda > (this.state.miu*this.state.servidores) ?
+          { Number(this.state.lamda) > (Number(this.state.miu)*Number(this.state.servidores)) ?
             <div class="alert alert-danger" role="alert">
               Sistema no estable
             </div> :
@@ -201,10 +240,7 @@ class ModeloMMS extends Component {
                 <li className="list-group-item">Promedio Clientes en el Sistema (L): <strong>{ this.state.l }</strong></li>
                 <li className="list-group-item">Tiempo Esperado en la Cola (WQ): <strong>{ this.state.wq }</strong></li>
                 <li className="list-group-item">Tiempo Esperado en el Sistema (W); <strong>{ this.state.w }</strong></li>
-                <li className="list-group-item">
-                  <input className="form-control" type="number" min="1" id="inputN2" placeholder="n" onChange={this.handleNChange}/>
-                  Probabilidad (Pn); <strong>{ this.state.pn }</strong>
-                </li>
+                <li className="list-group-item">Probabilidad (Pn); <strong>{ this.state.pn }</strong></li>
               </ul>
             }
         </div>

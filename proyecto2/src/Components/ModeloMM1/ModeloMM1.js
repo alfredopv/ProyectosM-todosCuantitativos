@@ -29,39 +29,73 @@ class ModeloMM1 extends Component {
   }
 
   handleMiuChange (evt) {
-    this.setState({ miu: evt.target.value }, () => {
-      this.calcularP();
-      this.calcularP0();
-      this.calcularLQ();
-      this.calcularL();
-      this.calcularWQ();
-      this.calcularW();
-      if(this.state.lamda <= this.state.miu){
-        this.setState({ pn: 0 });
-        document.getElementById("inputN1").value = "";
-      }
-    });
+    if(Number(evt.target.value) < 0){
+      this.setState({ miu: 0 }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+        /*
+        if(this.state.lamda > this.state.miu){
+          this.setState({ pn: 0 });
+          document.getElementById("inputN1").value = "";
+        }*/
+      });
+    }else{
+      this.setState({ miu: evt.target.value }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+        /*
+        if(this.state.lamda > this.state.miu){
+          this.setState({ pn: 0 });
+          document.getElementById("inputN1").value = "";
+        }*/
+      });
+    }
   }
 
   handleLamdaChange (evt) {
-    this.setState({ lamda: evt.target.value }, () => {
-      this.calcularP();
-      this.calcularP0();
-      this.calcularLQ();
-      this.calcularL();
-      this.calcularWQ();
-      this.calcularW();
-      if(this.state.lamda <= this.state.miu){
-        this.setState({ pn: 0 });
-        document.getElementById("inputN1").value = "";
-      }
-    });
+    if(Number(evt.target.value) < 0){
+      this.setState({ lamda: 0 }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ lamda: evt.target.value }, () => {
+        this.calcularP();
+        this.calcularP0();
+        this.calcularLQ();
+        this.calcularL();
+        this.calcularWQ();
+        this.calcularW();
+        this.calcularPn();
+      });
+    }
   }
 
   handleNChange (evt) {
-    this.setState({ n: evt.target.value }, () => {
-      this.calcularPn();
-    });
+    if(Number(evt.target.value < 0)){
+      this.setState({ n: 0 }, () => {
+        this.calcularPn();
+      });
+    }else{
+      this.setState({ n: evt.target.value }, () => {
+        this.calcularPn();
+      });
+    }
   }
 
   calcularP(){
@@ -130,18 +164,24 @@ class ModeloMM1 extends Component {
             <div className="form-group row">
               <label for="example-text-input" className="col-md-7 col-form-label">Taza Media de Llegada (λ)</label>
               <div className="col-md-5">
-                <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleLamdaChange} />
+                <input className="form-control" type="number" min="1" max="100" id="example-text-input" onChange={this.handleLamdaChange} />
               </div>
             </div>
             <div className="form-group row">
               <label for="example-text-input" className="col-md-7 col-form-label">Taza Media de Servicio (μ)</label>
               <div className="col-md-5">
-                <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleMiuChange}/>
+                <input className="form-control" type="number" min="1" max="100" id="example-text-input" onChange={this.handleMiuChange}/>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label for="example-text-input" className="col-md-7 col-form-label">N para Pn</label>
+              <div className="col-md-5">
+                <input className="form-control" type="number" min="1" max="100" id="inputN1" onChange={this.handleNChange}/>
               </div>
             </div>
           </form>
-          { this.state.lamda > this.state.miu ?
-            <div class="alert alert-danger" role="alert">
+          { Number(this.state.lamda) > Number(this.state.miu) ?
+            <div className="alert alert-danger" role="alert">
               Sistema no estable
             </div> :
               <ul className="list-group">
@@ -152,10 +192,7 @@ class ModeloMM1 extends Component {
                 <li className="list-group-item">Promedio Clientes en el Sistema (L): <strong>{ this.state.l }</strong></li>
                 <li className="list-group-item">Tiempo Esperado en la Cola (WQ): <strong>{ this.state.wq }</strong></li>
                 <li className="list-group-item">Tiempo Esperado en el Sistema (W); <strong>{ this.state.w }</strong></li>
-                <li className="list-group-item">
-                  <input className="form-control" type="number" min="1" id="inputN1" placeholder="n" onChange={this.handleNChange}/>
-                  Probabilidad (Pn); <strong>{ this.state.pn }</strong>
-                </li>
+                <li className="list-group-item">Probabilidad (Pn); <strong>{ this.state.pn }</strong></li>
               </ul>
             }
         </div>
