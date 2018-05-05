@@ -13,16 +13,21 @@ const lq = 0;
 const l = 0;
 const wq = 0;
 const w = 0;
+const cw = 0;
+const cs = 0;
+const ct = 0;
 class ModeloMMSK extends Component {
 
   constructor(props){
     super(props);
-    this.state = { miu, lamda, servidores, k, p, p0, lq, l, wq, w, n, pn }
+    this.state = { miu, lamda, servidores, k, p, p0, lq, l, wq, w, n, pn, cw, cs, ct }
     this.handleMiuChange = this.handleMiuChange.bind(this);
     this.handleLamdaChange = this.handleLamdaChange.bind(this);
     this.handleServidoresChange = this.handleServidoresChange.bind(this);
     this.handleKChange = this.handleKChange.bind(this);
     this.handleNChange = this.handleNChange.bind(this);
+    this.handleCWChange = this.handleCWChange.bind(this);
+    this.handleCSChange = this.handleCSChange.bind(this);
     this.calcularP = this.calcularP.bind(this);
     this.calcularPk = this.calcularPk.bind(this);
     this.calcularP0 = this.calcularP0.bind(this);
@@ -32,6 +37,7 @@ class ModeloMMSK extends Component {
     this.calcularW = this.calcularW.bind(this);
     this.calcularL = this.calcularL.bind(this);
     this.calcularPn = this.calcularPn.bind(this);
+    this.calcularCT = this.calcularCT.bind(this);
   }
 
   handleMiuChange( evt ){
@@ -44,6 +50,7 @@ class ModeloMMSK extends Component {
         this.calcularW();
         this.calcularL();
         this.calcularPn();
+        this.calcularCT();
       });
     }else{
       this.setState({ miu: evt.target.value }, () =>{
@@ -54,6 +61,7 @@ class ModeloMMSK extends Component {
         this.calcularW();
         this.calcularL();
         this.calcularPn();
+        this.calcularCT();
       });
     }
   }
@@ -67,6 +75,7 @@ class ModeloMMSK extends Component {
         this.calcularW();
         this.calcularL();
         this.calcularPn();
+        this.calcularCT();
       });
     }else{
       this.setState({ lamda: evt.target.value }, () =>{
@@ -77,6 +86,7 @@ class ModeloMMSK extends Component {
         this.calcularW();
         this.calcularL();
         this.calcularPn();
+        this.calcularCT();
       });
     }
   }
@@ -90,6 +100,7 @@ class ModeloMMSK extends Component {
         this.calcularW();
         this.calcularL();
         this.calcularPn();
+        this.calcularCT();
       });
     }else{
       this.setState({ servidores: evt.target.value }, () =>{
@@ -100,6 +111,7 @@ class ModeloMMSK extends Component {
         this.calcularW();
         this.calcularL();
         this.calcularPn();
+        this.calcularCT();
       });
     }
   }
@@ -113,6 +125,7 @@ class ModeloMMSK extends Component {
         this.calcularW();
         this.calcularL();
         this.calcularPn();
+        this.calcularCT();
       });
     }else{
       this.setState({ k: evt.target.value }, () =>{
@@ -123,6 +136,7 @@ class ModeloMMSK extends Component {
         this.calcularW();
         this.calcularL();
         this.calcularPn();
+        this.calcularCT();
       });
     }
   }
@@ -134,6 +148,28 @@ class ModeloMMSK extends Component {
     }else{
       this.setState({ n: evt.target.value }, () => {
         this.calcularPn();
+      });
+    }
+  }
+  handleCWChange (evt) {
+    if(Number(evt.target.value < 0)){
+      this.setState({ cw: 0 }, () => {
+        this.calcularCT();
+      });
+    }else{
+      this.setState({ cw: evt.target.value }, () => {
+        this.calcularCT();
+      });
+    }
+  }
+  handleCSChange (evt) {
+    if(Number(evt.target.value < 0)){
+      this.setState({ cs: 0 }, () => {
+        this.calcularCT();
+      });
+    }else{
+      this.setState({ cs: evt.target.value }, () => {
+        this.calcularCT();
       });
     }
   }
@@ -251,6 +287,15 @@ class ModeloMMSK extends Component {
     let resultado = w*lamdaE;
     this.setState({ l: resultado.toFixed(5) })
   }
+  calcularCT(){
+    const lq = this.calcularLQ();
+    const cw = this.state.cw;
+    const cs = this.state.cs;
+    const servidores = this.state.servidores;
+    let resultado;
+    resultado = (Number(lq) * Number(cw)) + (Number(servidores) * Number(cs));
+    this.setState({ ct: resultado.toFixed(5) })
+  }
 
   render() {
     return (
@@ -288,6 +333,18 @@ class ModeloMMSK extends Component {
                 <input className="form-control" type="number" min="0" id="example-text-input" onChange={this.handleNChange} />
               </div>
             </div>
+            <div className="form-group row">
+              <label for="example-text-input" className="col-md-7 col-form-label">Costo por Tiempo de Espera (cw)</label>
+              <div className="col-md-5">
+                <input className="form-control" type="number" min="1" max="100" onChange={this.handleCWChange}/>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label for="example-text-input" className="col-md-7 col-form-label">Costo del Servicio (cs)</label>
+              <div className="col-md-5">
+                <input className="form-control" type="number" min="1" max="100" onChange={this.handleCSChange}/>
+              </div>
+            </div>
           </form>
           { Number(this.state.lamda) >= (Number(this.state.miu)*Number(this.state.servidores))?
             <div class="alert alert-danger" role="alert">
@@ -302,6 +359,7 @@ class ModeloMMSK extends Component {
               <li className="list-group-item">Tiempo Esperado en la Cola (WQ): <strong>{ this.state.wq }</strong></li>
               <li className="list-group-item">Tiempo Esperado en el Sistema (W); <strong>{ this.state.w }</strong></li>
               <li className="list-group-item">Probabilidad (Pn); <strong>{ this.state.pn }</strong></li>
+              <li className="list-group-item">Costo Total Esperado (CT): <strong>{ this.state.ct }</strong></li>
             </ul>
           }
         </div>
