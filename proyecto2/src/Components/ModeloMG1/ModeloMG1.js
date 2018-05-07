@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './ModeloMG1.css'
 
-// sigma σ
-
-
 const miu = 0;
 const lamda = 0;
 const sigma = 0;
@@ -15,15 +12,21 @@ const lq = 0;
 const l = 0;
 const wq = 0;
 const w = 0;
+const cw = 0;
+const cs = 0;
+const ct = 0;
+
 class ModeloMG1 extends Component {
 
   constructor(props){
     super(props);
-    this.state = { miu, lamda, p, p0, lq, l, wq, w, n, pn, sigma };
-    this.handleSigmaChange = this.handleSigmaChange.bind(this);
+    this.state = { miu, lamda, p, p0, lq, l, wq, w, n, pn, sigma,cw, cs, ct };
     this.handleMiuChange = this.handleMiuChange.bind(this);
     this.handleLamdaChange = this.handleLamdaChange.bind(this);
+    this.handleSigmaChange = this.handleSigmaChange.bind(this);
     this.handleNChange = this.handleNChange.bind(this);
+    this.handleCWChange = this.handleCWChange.bind(this);
+    this.handleCSChange = this.handleCSChange.bind(this);
     this.calcularLQ = this.calcularLQ.bind(this);
     this.calcularL = this.calcularL.bind(this);
     this.calcularWQ = this.calcularWQ.bind(this);
@@ -31,7 +34,7 @@ class ModeloMG1 extends Component {
     this.calcularP = this.calcularP.bind(this);
     this.calcularP0 = this.calcularP0.bind(this);
     this.calcularPn = this.calcularPn.bind(this);
-
+    this.calcularCT = this.calcularCT.bind(this);
   }
 
   handleSigmaChange (evt) {
@@ -44,6 +47,7 @@ class ModeloMG1 extends Component {
         this.calcularWQ();
         this.calcularW();
         this.calcularPn();
+        this.calcularCT();
       });
     }else{
       this.setState({ sigma: evt.target.value }, () => {
@@ -54,11 +58,12 @@ class ModeloMG1 extends Component {
         this.calcularWQ();
         this.calcularW();
         this.calcularPn();
+        this.calcularCT();
       });
     }
   }
 
-  handleMiuChange (evt) {
+  handleMiuChange( evt ){
     if(Number(evt.target.value) < 0){
       this.setState({ miu: 0 }, () => {
         this.calcularP();
@@ -68,6 +73,7 @@ class ModeloMG1 extends Component {
         this.calcularWQ();
         this.calcularW();
         this.calcularPn();
+        this.calcularCT();
       });
     }else{
       this.setState({ miu: evt.target.value }, () => {
@@ -78,11 +84,11 @@ class ModeloMG1 extends Component {
         this.calcularWQ();
         this.calcularW();
         this.calcularPn();
+        this.calcularCT();
       });
     }
   }
-
-  handleLamdaChange (evt) {
+  handleLamdaChange( evt ){
     if(Number(evt.target.value) < 0){
       this.setState({ lamda: 0 }, () => {
         this.calcularP();
@@ -92,6 +98,7 @@ class ModeloMG1 extends Component {
         this.calcularWQ();
         this.calcularW();
         this.calcularPn();
+        this.calcularCT();
       });
     }else{
       this.setState({ lamda: evt.target.value }, () => {
@@ -102,11 +109,11 @@ class ModeloMG1 extends Component {
         this.calcularWQ();
         this.calcularW();
         this.calcularPn();
+        this.calcularCT();
       });
     }
   }
-
-  handleNChange (evt) {
+  handleNChange( evt ){
     if(Number(evt.target.value < 0)){
       this.setState({ n: 0 }, () => {
         this.calcularPn();
@@ -114,6 +121,30 @@ class ModeloMG1 extends Component {
     }else{
       this.setState({ n: evt.target.value }, () => {
         this.calcularPn();
+      });
+    }
+  }
+
+  handleCWChange (evt) {
+    if(Number(evt.target.value < 0)){
+      this.setState({ cw: 0 }, () => {
+        this.calcularCT();
+      });
+    }else{
+      this.setState({ cw: evt.target.value }, () => {
+        this.calcularCT();
+      });
+    }
+  }
+
+  handleCSChange (evt) {
+    if(Number(evt.target.value < 0)){
+      this.setState({ cs: 0 }, () => {
+        this.calcularCT();
+      });
+    }else{
+      this.setState({ cs: evt.target.value }, () => {
+        this.calcularCT();
       });
     }
   }
@@ -177,6 +208,14 @@ class ModeloMG1 extends Component {
     this.setState({ w: resultado.toFixed(5) })
     return resultado;
   }
+  calcularCT(){
+    const lq = this.calcularLQ();
+    const cw = this.state.cw;
+    const cs = this.state.cs;
+    let resultado;
+    resultado = (Number(lq) * Number(cw)) +  Number(cs);
+    this.setState({ ct: resultado.toFixed(5) })
+  }
 
   render() {
     return (
@@ -208,6 +247,18 @@ class ModeloMG1 extends Component {
                 <input className="form-control" type="number" min="1" id="example-text-input" onChange={this.handleNChange}/>
               </div>
             </div>
+            <div className="form-group row">
+              <label for="example-text-input" className="col-md-7 col-form-label">Costo por Tiempo de Espera (cw)</label>
+              <div className="col-md-5">
+                <input className="form-control" type="number" min="1" max="100" onChange={this.handleCWChange}/>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label for="example-text-input" className="col-md-7 col-form-label">Costo del Servicio (cs)</label>
+              <div className="col-md-5">
+                <input className="form-control" type="number" min="1" max="100" onChange={this.handleCSChange}/>
+              </div>
+            </div>
           </form>
           { Number(this.state.lamda) >= Number(this.state.miu) ?
             <div class="alert alert-danger" role="alert">
@@ -222,6 +273,7 @@ class ModeloMG1 extends Component {
                 <li className="list-group-item">Tiempo Esperado en la Cola (WQ): <strong>{ this.state.wq }</strong></li>
                 <li className="list-group-item">Tiempo Esperado en el Sistema (W): <strong>{ this.state.w }</strong></li>
                 <li className="list-group-item">Probabilidad (Pn): <strong>{ this.state.pn }</strong></li>
+                <li className="list-group-item">Costo Total Esperado (CT): <strong>{ this.state.ct }</strong></li>
               </ul>
             }
         </div>

@@ -209,10 +209,12 @@ class ModeloMMSK extends Component {
     const p0 = this.calcularP0();
     const n = this.state.n;
     let resultado;
-    if(n < servidores){
+    if(Number(n) <= Number(servidores)){
       resultado = (Math.pow(lamda/miu,n)/this.factorial(n))*p0;
-    }else if(n <= k){
+      console.log("primer caso");
+    }else if(Number(n)>Number(servidores) && Number(n) <= Number(k)){
       resultado = (Math.pow(lamda/miu,n)/(this.factorial(servidores)*Math.pow(servidores,n-servidores)))*p0;
+      console.log("segundo caso");
     }else{
       resultado = 0;
     }
